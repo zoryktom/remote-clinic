@@ -4,6 +4,8 @@
 
 Remote Clinic is an open-source voxel simulation game in which players operate a fictional remote healthcare clinic under constraints involving staffing, connectivity, transportation, supplies, computing resources, and power.
 
+Created by Zorykto Mykola.
+
 The game is intentionally not a healthcare dashboard. The player walks through a 3D voxel community, enters the clinic, interacts with computers, patients, the local AI server, generator, network tower, supply cabinets, and the Research Lab. The simulation underneath tracks synthetic patients, longitudinal timelines, care gaps, disruptions, AI failures, research experiments, and reproducible exports.
 
 **Tagline:** Care more patients. Make better decisions. Survive the constraints.

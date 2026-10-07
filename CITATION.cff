@@ -3,8 +3,8 @@ title: Remote Clinic
 message: If you use this software, please cite it using this metadata.
 type: software
 authors:
-  - family-names: Tomykola
-    given-names: Zoryk
+  - family-names: Mykola
+    given-names: Zorykto
 repository-code: https://github.com/zoryktom/remote-clinic
 url: https://zoryktom.github.io/remote-clinic/
 license: MIT

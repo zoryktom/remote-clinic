@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "description": "A voxel biomedical informatics simulation game about operating a remote clinic under constraints.",
   "license": "MIT",
+  "author": "Zorykto Mykola",
   "homepage": "https://zoryktom.github.io/remote-clinic/",
   "repository": {
     "type": "git",
