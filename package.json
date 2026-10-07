@@ -1,0 +1,47 @@
+{
+  "name": "remote-clinic",
+  "private": false,
+  "version": "0.1.0",
+  "description": "A voxel biomedical informatics simulation game about operating a remote clinic under constraints.",
+  "license": "MIT",
+  "homepage": "https://zoryktom.github.io/remote-clinic/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zoryktom/remote-clinic.git"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "biomedical-informatics",
+    "healthcare-simulation",
+    "voxel-game",
+    "local-ai",
+    "research"
+  ],
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.52.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@types/three": "^0.186.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "playwright": "^1.64.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.3"
+  }
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Remote Clinic">
+  <rect width="64" height="64" rx="12" fill="#0f1717"/>
+  <path d="M10 42 32 18l22 24-8 7H18z" fill="#77d3a1"/>
+  <path d="M20 28h24v21H20z" fill="#edf6f2"/>
+  <path d="M29 32h6v5h5v6h-5v5h-6v-5h-5v-6h5z" fill="#195650"/>
+  <path d="M46 15h4v27h-4zM41 20h14v4H41z" fill="#f2c75c"/>
+</svg>
