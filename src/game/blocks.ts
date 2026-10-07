@@ -83,13 +83,14 @@ export const buildableBlocks: BlockId[] = [
 
 export function materialForBlock(id: BlockId): THREE.MeshStandardMaterial {
   const block = blockDefinitions[id]
-  return new THREE.MeshStandardMaterial({
+  const options: THREE.MeshStandardMaterialParameters = {
     color: block.color,
     roughness: block.roughness,
     metalness: block.metalness,
-    transparent: block.transparent,
-    opacity: block.opacity ?? 1,
-  })
+  }
+  if (block.transparent !== undefined) options.transparent = block.transparent
+  if (block.opacity !== undefined) options.opacity = block.opacity
+  return new THREE.MeshStandardMaterial(options)
 }
 
 function def(

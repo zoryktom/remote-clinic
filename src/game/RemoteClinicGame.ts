@@ -39,7 +39,7 @@ export class RemoteClinicGame {
   private scene = new THREE.Scene()
   private camera = new THREE.PerspectiveCamera(72, 16 / 9, 0.05, 300)
   private renderer: THREE.WebGLRenderer
-  private clock = new THREE.Clock()
+  private lastFrameTime = performance.now()
   private callbacks: GameCallbacks
   private container: HTMLElement
   private raycaster = new THREE.Raycaster()
@@ -65,7 +65,7 @@ export class RemoteClinicGame {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     this.renderer.shadowMap.enabled = true
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    this.renderer.shadowMap.type = THREE.PCFShadowMap
     this.renderer.outputColorSpace = THREE.SRGBColorSpace
     this.renderer.setClearColor(0xbcd5df)
     this.container.appendChild(this.renderer.domElement)
@@ -444,7 +444,9 @@ export class RemoteClinicGame {
 
   private loop = () => {
     if (!this.running) return
-    const delta = Math.min(0.05, this.clock.getDelta())
+    const now = performance.now()
+    const delta = Math.min(0.05, (now - this.lastFrameTime) / 1000)
+    this.lastFrameTime = now
     this.update(delta)
     this.renderer.render(this.scene, this.camera)
     this.animationId = requestAnimationFrame(this.loop)
