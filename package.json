@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:pages": "tsc -b && vite build --base=/remote-clinic/",
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run",

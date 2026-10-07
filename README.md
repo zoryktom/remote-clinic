@@ -139,11 +139,10 @@ npm run build
 GitHub Pages is served from the `gh-pages` branch. A local deployment can be produced with:
 
 ```bash
-npm run build
-git subtree push --prefix dist origin gh-pages
+npm run build:pages
 ```
 
-If the branch already exists, deploy by replacing the contents of `gh-pages` with the latest `dist` build.
+Then replace the contents of the `gh-pages` branch with the files in `dist` and push that branch. The production build uses `/remote-clinic/` as its base path so assets resolve correctly on project Pages.
 
 ## License
 
