@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1 - 2026-10-07
+
+- Improved first-time player onboarding with a concise opening explanation and Start Day flow.
+- Added a replayable How To Play panel, persistent current objective, work queue, and clinic status panel.
+- Added patient next-action buttons and a visual patient workflow from arrival through follow-up.
+- Added immediate positive/warning feedback, day-complete results, bottleneck view, map labels, and an understandable connectivity failure scenario.
+- Made the initial scenario a simple three-patient normal day before disruptions appear.
+
 ## 0.1.0 - 2026-10-07
 
 - Created the Remote Clinic voxel game.

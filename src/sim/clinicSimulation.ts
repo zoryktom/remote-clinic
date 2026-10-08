@@ -25,10 +25,10 @@ const softwareVersion = '0.1.0'
 const weatherCycle: WeatherState[] = ['CLEAR', 'SNOW', 'RAIN', 'STORM', 'CLEAR', 'SEVERE_STORM']
 
 export function createInitialGameState(seed = 'REMOTE-20491'): GameState {
-  const patients = generatePatients(seed, 24)
-  const careGaps = detectCareGaps(patients, 7).slice(0, 34)
+  const patients = generatePatients(seed, 3)
+  const careGaps = detectCareGaps(patients, 1).slice(0, 8)
   const ai = createInitialAiState()
-  ai.failures = patients.slice(0, 4).map((patient, index) => makeAiFailure(index + 1, patient))
+  ai.failures = patients.slice(0, 2).map((patient, index) => makeAiFailure(index + 1, patient))
   ai.metrics = {
     ...ai.metrics,
     queries: 12,
@@ -39,28 +39,56 @@ export function createInitialGameState(seed = 'REMOTE-20491'): GameState {
     verificationRate: 82,
   }
 
+  const resources = createInitialResources()
+  resources.staff = {
+    ...resources.staff,
+    clinicians: 1,
+    nurses: 1,
+    technicians: 1,
+    communityHealthWorkers: 0,
+    administrators: 0,
+    workload: 18,
+  }
+  resources.supplies = {
+    ...resources.supplies,
+    medications: 90,
+    testKits: 60,
+    ppe: 90,
+    fuel: 76,
+    labReagents: 60,
+  }
+  resources.transport = {
+    ...resources.transport,
+    vehicles: 1,
+    roadOpen: true,
+    averageTravelMinutes: 28,
+    delayedPatients: 0,
+  }
+  resources.powerPercent = 92
+  resources.computingLoad = 18
+
   const events = buildInitialEvents(seed, patients.length)
 
   return {
     worldSeed: seed,
     simulationSeed: `${seed}-SIM`,
-    day: 7,
-    minute: 9 * 60 + 12,
-    scenario: 'Day One: Remote Systems',
-    weather: 'SNOW',
-    connectivity: 'LIMITED',
+    day: 1,
+    minute: 8 * 60 + 30,
+    scenario: 'Scenario 1: Normal Day',
+    weather: 'CLEAR',
+    connectivity: 'ONLINE',
     patients,
     careGaps,
-    resources: createInitialResources(),
+    resources,
     ai,
     events,
     score: calculateScore({
       careGaps,
-      resources: createInitialResources(),
+      resources,
       aiFailures: ai.failures,
-      patientsServed: 16,
+      patientsServed: 0,
       totalPatients: patients.length,
-      cost: 1200,
+      cost: 0,
     }),
     experiments: [],
     selectedPatientId: patients[0]?.id ?? 'P001',
@@ -385,33 +413,33 @@ function applyExperimentConfig(state: GameState, config: ExperimentConfig): Game
 
 function buildInitialEvents(seed: string, patientCount: number): TimelineEvent[] {
   return [
-    event('EV001', 7, 9 * 60 + 12, 'weather', 'Environment', 'Snow begins over the ridge road.', { seed }),
+    event('EV001', 1, 8 * 60 + 30, 'weather', 'Environment', 'Normal clinic day begins with clear roads.', { seed }),
     event(
       'EV002',
-      7,
-      9 * 60 + 18,
+      1,
+      8 * 60 + 35,
       'infrastructure',
       'Network Tower',
-      'Connectivity drops to LIMITED; local systems remain available.',
-      { connectivity: 'LIMITED' },
+      'Connectivity is stable. Referrals and result transmission are available.',
+      { connectivity: 'ONLINE' },
     ),
     event(
       'EV003',
-      7,
-      9 * 60 + 27,
+      1,
+      8 * 60 + 40,
       'resource',
       'Reception',
-      `${patientCount} synthetic patient records loaded into the local clinic system.`,
+      `${patientCount} patients are waiting for normal clinic workflow.`,
       { patientCount },
     ),
     event(
       'EV004',
-      7,
-      12 * 60 + 7,
+      1,
+      8 * 60 + 45,
       'ai_event',
       'Clinic AI',
-      'AI summary generated with evidence panel and human review required.',
-      { verification: 'PARTIALLY_SUPPORTED' },
+      'Clinic Assistant is available for short workflow explanations.',
+      { verification: 'SUPPORTED' },
     ),
   ]
 }
