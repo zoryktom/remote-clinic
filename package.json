@@ -1,7 +1,7 @@
 {
   "name": "remote-clinic",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A voxel biomedical informatics simulation game about operating a remote clinic under constraints.",
   "license": "MIT",
   "author": "Zorykto Mykola",
@@ -18,7 +18,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "validate": "vitest run src/sim/validation.test.ts --reporter=verbose"
   },
   "keywords": [
     "biomedical-informatics",

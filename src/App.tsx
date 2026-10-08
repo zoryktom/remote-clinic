@@ -38,6 +38,7 @@ import {
   resolveCareGap,
   runExperiment,
 } from './sim/clinicSimulation'
+import { buildExperimentEvidenceGraph, exportValidationReport, runValidationSuite } from './sim/validation'
 import type { ExperimentResult, GameState, Patient, ResearchAnswer } from './sim/types'
 
 type ModalKind =
@@ -294,6 +295,21 @@ function App() {
     if (!result) return
     setExportText(exportExperiment(result, format))
     setExportName(`remote-clinic-experiment.${format === 'markdown' ? 'md' : format}`)
+  }
+
+  const exportLatestValidation = () => {
+    const results = state.experiments.slice(-2)
+    if (results.length < 2) return
+    const report = runValidationSuite(results, `${state.worldSeed}-VALIDATION`)
+    setExportText(exportValidationReport(report, 'markdown'))
+    setExportName('remote-clinic-validation.md')
+  }
+
+  const exportLatestEvidenceGraph = () => {
+    const result = state.experiments.at(-1)
+    if (!result) return
+    setExportText(JSON.stringify(buildExperimentEvidenceGraph(result), null, 2))
+    setExportName('remote-clinic-evidence-graph.json')
   }
 
   const startConnectivityScenario = () => {
@@ -577,6 +593,8 @@ function App() {
               experiment={experiment}
               onRun={runDefaultResearch}
               onExport={exportLatestExperiment}
+              onExportValidation={exportLatestValidation}
+              onExportEvidenceGraph={exportLatestEvidenceGraph}
               exportName={exportName}
               exportText={exportText}
               downloadUrl={downloadUrl}
@@ -844,6 +862,8 @@ function ResearchPanel({
   experiment,
   onRun,
   onExport,
+  onExportValidation,
+  onExportEvidenceGraph,
   exportName,
   exportText,
   downloadUrl,
@@ -852,11 +872,14 @@ function ResearchPanel({
   experiment?: ExperimentResult
   onRun: () => void
   onExport: (format: 'json' | 'csv' | 'jsonl' | 'markdown') => void
+  onExportValidation: () => void
+  onExportEvidenceGraph: () => void
   exportName: string
   exportText: string
   downloadUrl: string
 }) {
   const previous = state.experiments.at(-2)
+  const validation = state.experiments.length >= 2 ? runValidationSuite(state.experiments.slice(-2), `${state.worldSeed}-VALIDATION`) : null
   return (
     <div className="stack-panel">
       <div className="button-row">
@@ -865,10 +888,13 @@ function ResearchPanel({
         <button type="button" onClick={() => onExport('csv')}>CSV</button>
         <button type="button" onClick={() => onExport('jsonl')}>JSONL</button>
         <button type="button" onClick={() => onExport('markdown')}>Report</button>
+        <button type="button" onClick={onExportValidation}>Validation</button>
+        <button type="button" onClick={onExportEvidenceGraph}>Graph</button>
       </div>
       {experiment ? (
         <>
           <ComparisonTable left={previous} right={experiment} />
+          {validation && <ValidationPanel report={validation} />}
           <h3>Event Replay</h3>
           <Timeline events={experiment.events.slice(-8)} />
         </>
@@ -882,6 +908,22 @@ function ResearchPanel({
         </div>
       )}
     </div>
+  )
+}
+
+function ValidationPanel({ report }: { report: ReturnType<typeof runValidationSuite> }) {
+  return (
+    <section className="validation-panel">
+      <h3>Validation Gates</h3>
+      <p>{report.passed ? 'PASS' : 'FAIL'} · {report.gates.filter((gate) => gate.passed).length}/{report.gates.length} gates passing</p>
+      <div className="validation-list">
+        {report.gates.map((gate) => (
+          <span key={gate.name} className={gate.passed ? 'pass' : 'fail'}>
+            {gate.name}
+          </span>
+        ))}
+      </div>
+    </section>
   )
 }
 

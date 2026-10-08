@@ -61,6 +61,8 @@ Research Mode supports reproducible experiment configurations:
 
 The current vertical slice includes an A/B experiment comparing offline operation with and without local AI. Results are labeled **SIMULATION RESULT** and should not be interpreted as real-world clinical evidence.
 
+The Research Lab also exports a validation report and an experiment evidence graph. See [`docs/VALIDATION.md`](docs/VALIDATION.md).
+
 ## AI System
 
 Clinic AI is local-first and optional. The shipped version uses structured rules over simulation data and does not require a cloud API.
@@ -116,6 +118,12 @@ Every generated world uses a seed. Experiment results include:
 
 Exports never include real patient data.
 
+Validation checks deterministic replay, export integrity, scenario behavior, and evidence-graph traceability:
+
+```bash
+npm run validate
+```
+
 ## Limitations
 
 Remote Clinic uses synthetic patients and fictional clinical scenarios. It is not a medical device, diagnostic tool, clinical decision support system, staffing recommendation system, or outcome prediction model.
@@ -133,6 +141,7 @@ npm run dev
 
 ```bash
 npm run test
+npm run validate
 npm run build
 ```
 

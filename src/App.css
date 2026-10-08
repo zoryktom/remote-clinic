@@ -699,6 +699,7 @@
 .patient-summary,
 .assistant-box,
 .evidence-panel,
+.validation-panel,
 .care-gap-list article,
 .failure-list article,
 .metric,
@@ -713,6 +714,7 @@
 
 .patient-summary,
 .assistant-box,
+.validation-panel,
 .day-explain,
 .bottleneck-list article {
   padding: 14px;
@@ -946,6 +948,30 @@
 
 .comparison-table th {
   color: #f2c75c;
+}
+
+.validation-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.validation-list span {
+  border: 1px solid rgba(237, 246, 242, 0.16);
+  border-radius: 7px;
+  padding: 7px 9px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.validation-list .pass {
+  background: rgba(119, 211, 161, 0.13);
+  border-color: rgba(119, 211, 161, 0.34);
+}
+
+.validation-list .fail {
+  background: rgba(249, 115, 115, 0.13);
+  border-color: rgba(249, 115, 115, 0.34);
 }
 
 .bottleneck-list {

@@ -14,3 +14,11 @@ Research exports include:
 - failure samples
 
 Given the same software version and configuration, experiment metrics should reproduce.
+
+Run:
+
+```bash
+npm run validate
+```
+
+The validation suite replays the local-AI experiment with the same configuration and checks that metrics and failure identifiers reproduce.

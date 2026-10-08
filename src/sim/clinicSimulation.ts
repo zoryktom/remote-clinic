@@ -20,7 +20,7 @@ import type {
   WeatherState,
 } from './types'
 
-const softwareVersion = '0.1.0'
+const softwareVersion = '0.2.0'
 
 const weatherCycle: WeatherState[] = ['CLEAR', 'SNOW', 'RAIN', 'STORM', 'CLEAR', 'SEVERE_STORM']
 
